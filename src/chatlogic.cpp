@@ -16,7 +16,7 @@ ChatLogic::ChatLogic()
 {
     //// STUDENT CODE
     ////
-
+    std::cout << "ChatLogic constructor...\n";
     // create instance of chatbot
     _chatBot = new ChatBot("../images/chatbot.png");
 
@@ -85,8 +85,10 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         {
             // extract all tokens from current line
             tokenlist tokens;
+            //std::cout << ".. Tokenizing a line.\n";
             while (lineStr.size() > 0)
             {
+
                 // extract next token
                 int posTokenFront = lineStr.find("<");
                 int posTokenBack = lineStr.find(">");
@@ -109,6 +111,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                 lineStr = lineStr.substr(posTokenBack + 1, lineStr.size());
             }
 
+            //std::cout << ".. Process tokens...\n";
             // process tokens for current line
             auto type = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "TYPE"; });
             if (type != tokens.end())
@@ -195,7 +198,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
     //// STUDENT CODE
     ////
-
+    //std::cout << ".. Identify Root Node\n";
     // identify root node
     GraphNode *rootNode = nullptr;
     for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
@@ -215,10 +218,12 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         }
     }
 
+    std::cout << ".. ChatBot SetRootNode()\n";
     // add chatbot to graph root node
     _chatBot->SetRootNode(rootNode);
+    std::cout << ".. MoveChatbotHere()\n";
     rootNode->MoveChatbotHere(_chatBot);
-    
+    std::cout << ".. End of LoadAnswerGraphFromFile\n";
     ////
     //// EOF STUDENT CODE
 }
